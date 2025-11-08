@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perbandingan Peringkat SDGs (2025 vs 2024)</title>
+    <!-- Muat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Konfigurasi Font Inter -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="min-h-screen flex flex-col items-center p-4 sm:p-8">
+        <!-- Header -->
+        <header class="w-full max-w-6xl mb-8 p-6 rounded-xl shadow-lg text-white bg-gradient-to-r from-emerald-500 to-cyan-600">
+            <h1 class="text-3xl sm:text-4xl font-extrabold mb-1">Pencapaian SDG Universitas</h1>
+            <p class="text-lg sm:text-xl font-light">Perbandingan Peringkat Global & Domestik: 2025 vs 2024</p>
+        </header>
+
+        <!-- Main Content Card -->
+        <div class="w-full max-w-6xl bg-white rounded-xl shadow-2xl p-4 sm:p-8">
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-cyan-500 pb-2">Tabel Komparatif Peringkat SDGs</h2>
+
+            <!-- Responsive Table Container -->
+            <div class="overflow-x-auto rounded-lg shadow-inner">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <!-- Table Header -->
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SDG</th>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deskripsi</th>
+                            <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider bg-cyan-100">Domestik 2025</th>
+                            <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider bg-emerald-100">Global 2025</th>
+                            <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Domestik 2024</th>
+                            <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Global 2024</th>
+                            <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Tren Global</th>
+                        </tr>
+                    </thead>
+                    <!-- Table Body -->
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Data rows based on the provided input -->
+                        <!-- Function to get trend class and icon -->
+                        <script>
+                            function getTrend(rank2025, rank2024) {
+                                if (rank2024 === 'N/A' || rank2025 === 'N/A') return { text: 'N/A', class: 'text-gray-500' };
+
+                                // Simple logic for rank improvement (lower number is better)
+                                // This is highly simplified for range comparisons, focusing on 'better' vs 'worse' categories.
+                                const getCategory = (rank) => {
+                                    if (rank.includes('=')) rank = rank.replace('=', '');
+                                    const r = parseInt(rank.split('-')[0].replace('th', '').replace('+', '').replace('=', ''));
+                                    if (isNaN(r)) return 10000;
+                                    if (r <= 100) return 1;
+                                    if (r <= 200) return 2;
+                                    if (r <= 400) return 3;
+                                    if (r <= 600) return 4;
+                                    if (r <= 800) return 5;
+                                    if (r <= 1000) return 6;
+                                    return 7;
+                                };
+
+                                const cat2025 = getCategory(rank2025);
+                                const cat2024 = getCategory(rank2024);
+
+                                if (cat2025 < cat2024) {
+                                    return { text: 'Naik', class: 'text-green-600 font-semibold' };
+                                } else if (cat2025 > cat2024) {
+                                    return { text: 'Turun', class: 'text-red-600 font-semibold' };
+                                } else {
+                                    return { text: 'Stabil', class: 'text-blue-600' };
+                                }
+                            }
+
+                            const sdgData = [
+                                { sdg: 1, desc: 'Tanpa Kemiskinan', d2025: '3', g2025: '101-200th', d2024: '2', g2024: '401-600' },
+                                { sdg: 2, desc: 'Tanpa Kelaparan', d2025: '4', g2025: '201-300th', d2024: '4', g2024: 'N/A' },
+                                { sdg: 3, desc: 'Kesehatan & Kesejahteraan', d2025: '5', g2025: '301-400th', d2024: '6', g2024: '1001+' },
+                                { sdg: 4, desc: 'Pendidikan Berkualitas', d2025: '1', g2025: '=66th', d2024: '1', g2024: '101-200' },
+                                { sdg: 5, desc: 'Kesetaraan Gender', d2025: '5', g2025: '301-400th', d2024: '6', g2024: 'N/A' },
+                                { sdg: 6, desc: 'Air Bersih & Sanitasi', d2025: 'N/A', g2025: 'N/A', d2024: 'N/A', g2024: 'N/A' },
+                                { sdg: 7, desc: 'Energi Bersih & Terjangkau', d2025: '5', g2025: '301-400th', d2024: '7', g2024: 'N/A' },
+                                { sdg: 8, desc: 'Pekerjaan Layak & Pertumbuhan Ekonomi', d2025: 'N/A', g2025: 'N/A', d2024: 'N/A', g2024: 'N/A' },
+                                { sdg: 9, desc: 'Industri, Inovasi, & Infrastruktur', d2025: '3', g2025: '401-600th', d2024: '3', g2024: '401-600t' },
+                                { sdg: 10, desc: 'Mengurangi Kesenjangan', d2025: '6', g2025: '601-800th', d2024: '7', g2024: 'N/A' },
+                                { sdg: 11, desc: 'Kota & Komunitas Berkelanjutan', d2025: '4', g2025: '301-400th', d2024: '5', g2024: '601-800th' },
+                                { sdg: 12, desc: 'Konsumsi & Produksi Bertanggung Jawab', d2025: 'N/A', g2025: 'N/A', d2024: 'N/A', g2024: 'N/A' },
+                                { sdg: 13, desc: 'Penanganan Perubahan Iklim', d2025: '2', g2025: '101-200th', d2024: '3', g2024: '401-600th' },
+                                { sdg: 14, desc: 'Ekosistem Laut', d2025: '1', g2025: '79th', d2024: '2', g2024: '201-300' },
+                                { sdg: 15, desc: 'Ekosistem Darat', d2025: 'N/A', g2025: 'N/A', d2024: 'N/A', g2024: 'N/A' },
+                                { sdg: 16, desc: 'Perdamaian, Keadilan, & Institusi Kuat', d2025: 'N/A', g2025: 'N/A', d2024: 'N/A', g2024: 'N/A' },
+                                { sdg: 17, desc: 'Kemitraan untuk Mencapai Tujuan', d2025: '2', g2025: '101-200th', d2024: '5', g2024: '801-1000' }
+                            ];
+
+                            // Render table rows
+                            document.addEventListener('DOMContentLoaded', () => {
+                                const tbody = document.querySelector('tbody');
+                                sdgData.forEach(data => {
+                                    const trend = getTrend(data.g2025, data.g2024);
+                                    
+                                    // Highlight Top Global Ranks
+                                    const global2025Class = (data.g2025.includes('79') || data.g2025.includes('66')) ? 'bg-emerald-200 font-bold' : 'bg-emerald-50';
+                                    const domestic2025Class = (data.d2025 === '1') ? 'bg-cyan-200 font-bold' : 'bg-cyan-50';
+
+                                    const row = `
+                                        <tr class="hover:bg-gray-100 transition duration-150 ease-in-out">
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-900">SDG ${data.sdg}</td>
+                                            <td class="px-3 py-3 text-sm text-gray-500 max-w-xs">${data.desc}</td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-center text-sm ${domestic2025Class}">${data.d2025}</td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-center text-sm ${global2025Class}">${data.g2025}</td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-center text-sm text-gray-500">${data.d2024}</td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-center text-sm text-gray-500">${data.g2024}</td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-center text-sm ${trend.class}">${trend.text}</td>
+                                        </tr>
+                                    `;
+                                    tbody.insertAdjacentHTML('beforeend', row);
+                                });
+                            });
+                        </script>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Summary Points -->
+            <div class="mt-8">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Analisis Tren Kunci (Peringkat Global)</h3>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="p-3 bg-green-50 rounded-lg border-l-4 border-green-500">
+                        <span class="font-bold text-green-700">Pencapaian Terbaik:</span> **SDG 4 (=66th)** dan **SDG 14 (79th)**. Ini adalah kekuatan utama universitas.
+                    </li>
+                    <li class="p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+                        <span class="font-bold text-yellow-700">Lompatan Signifikan:</span> Peningkatan drastis pada **SDG 17 (Kemitraan)**, melompat dari 801-1000 ke **101-200**.
+                    </li>
+                    <li class="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                        <span class="font-bold text-blue-700">Area dengan Peningkatan Kuat:</span> **SDG 1 (Kemiskinan)**, **SDG 3 (Kesehatan)**, **SDG 13 (Iklim)**, dan **SDG 11 (Kota Berkelanjutan)** semuanya menunjukkan peningkatan yang jelas.
+                    </li>
+                    <li class="p-3 bg-red-50 rounded-lg border-l-4 border-red-500">
+                        <span class="font-bold text-red-700">SDG Belum Diranking:</span> **SDG 6, 8, 12, 15, dan 16** belum memiliki data. Ini bisa menjadi fokus pelaporan atau peningkatan di masa depan.
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
