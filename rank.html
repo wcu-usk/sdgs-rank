@@ -3,152 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perbandingan Peringkat SDGs (2025 vs 2024)</title>
+    <title>Perbandingan Peringkat THE Impact SDG (2024 vs 2025)</title>
     <!-- Muat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Konfigurasi Font Inter -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
         }
+        /* Custom Styles for Rank Indicators */
+        .rank-up { color: #059669; font-weight: bold; } /* Green for Improvement */
+        .rank-down { color: #dc2626; font-weight: bold; } /* Red for Decline */
+        .rank-stable { color: #4b5563; } /* Gray for Stable */
+        .rank-new { background-color: #bfdbfe; color: #1e40af; } /* Blue for New Entry */
+        .rank-na { color: #9ca3af; } /* Gray for Not Applicable */
+
+        /* Sticky elements for better scrolling experience */
+        .sticky-col {
+            position: sticky;
+            left: 0;
+            background-color: white;
+            z-index: 20;
+        }
+        /* Styling for the highlighted university (USK) */
+        .highlight-row {
+            background-color: #fffbeb !important; /* light yellow/gold background */
+            font-weight: 600;
+        }
+        .highlight-col {
+            background-color: #fef3c7 !important; /* slightly darker yellow for sticky column */
+            font-weight: 700 !important;
+        }
+        .sticky-head {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
 
-    <div class="min-h-screen flex flex-col items-center p-4 sm:p-8">
+    <div class="min-h-screen flex flex-col items-center p-2 sm:p-4">
         <!-- Header -->
-        <header class="w-full max-w-6xl mb-8 p-6 rounded-xl shadow-lg text-white bg-gradient-to-r from-emerald-500 to-cyan-600">
-            <h1 class="text-3xl sm:text-4xl font-extrabold mb-1">Pencapaian SDG Universitas</h1>
-            <p class="text-lg sm:text-xl font-light">Perbandingan Peringkat Global & Domestik: 2025 vs 2024</p>
+        <header class="w-full max-w-7xl mb-6 p-4 rounded-xl shadow-xl text-white bg-gradient-to-r from-teal-600 to-sky-700">
+            <h1 class="text-2xl sm:text-3xl font-extrabold mb-1">Tabel Komparatif Peringkat THE Impact SDG</h1>
+            <p class="text-md sm:text-lg font-light">Perbandingan Kinerja Universitas Indonesia: 2024 vs 2025</p>
         </header>
 
         <!-- Main Content Card -->
-        <div class="w-full max-w-6xl bg-white rounded-xl shadow-2xl p-4 sm:p-8">
+        <div class="w-full max-w-7xl bg-white rounded-xl shadow-2xl p-4 sm:p-6">
 
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-cyan-500 pb-2">Tabel Komparatif Peringkat SDGs</h2>
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-b-2 border-teal-500 pb-2">Perbandingan Peringkat Keseluruhan</h2>
 
             <!-- Responsive Table Container -->
-            <div class="overflow-x-auto rounded-lg shadow-inner">
-                <table class="min-w-full divide-y divide-gray-200">
+            <div class="overflow-x-auto rounded-lg shadow-inner border border-gray-200">
+                <table class="min-w-full divide-y divide-gray-300">
                     <!-- Table Header -->
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SDG</th>
-                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deskripsi</th>
-                            <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider bg-cyan-100">Domestik 2025</th>
-                            <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider bg-emerald-100">Global 2025</th>
-                            <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Domestik 2024</th>
-                            <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Global 2024</th>
-                            <th scope="col" class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Tren Global</th>
+                            <th scope="col" rowspan="2" class="sticky-col sticky-head bg-gray-100 border-r border-gray-300 px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Universitas</th>
+                            
+                            <!-- 2024 Block -->
+                            <th scope="col" colspan="3" class="sticky-head border-r border-gray-300 px-4 py-1 text-center text-xs font-bold text-gray-700 uppercase tracking-wider bg-teal-200">Peringkat 2024</th>
+                            
+                            <!-- 2025 Block -->
+                            <th scope="col" colspan="3" class="sticky-head px-4 py-1 text-center text-xs font-bold text-gray-700 uppercase tracking-wider bg-sky-200">Peringkat 2025</th>
+                        </tr>
+                        <tr>
+                            <!-- 2024 Sub Headers -->
+                            <th scope="col" class="sticky-head px-3 py-1 text-center text-xs font-medium text-gray-600 uppercase tracking-wider bg-teal-100">Dom. Rank</th>
+                            <th scope="col" class="sticky-head px-3 py-1 text-center text-xs font-medium text-gray-600 uppercase tracking-wider bg-teal-100">Global Rank</th>
+                            <th scope="col" class="sticky-head border-r border-gray-300 px-3 py-1 text-center text-xs font-medium text-gray-600 uppercase tracking-wider bg-teal-100">Overall Score</th>
+
+                            <!-- 2025 Sub Headers -->
+                            <th scope="col" class="sticky-head px-3 py-1 text-center text-xs font-medium text-gray-600 uppercase tracking-wider bg-sky-100">Dom. Rank</th>
+                            <th scope="col" class="sticky-head px-3 py-1 text-center text-xs font-medium text-gray-600 uppercase tracking-wider bg-sky-100">Global Rank</th>
+                            <th scope="col" class="sticky-head px-3 py-1 text-center text-xs font-medium text-gray-600 uppercase tracking-wider bg-sky-100">Overall Score</th>
                         </tr>
                     </thead>
-                    <!-- Table Body -->
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        <!-- Data rows based on the provided input -->
-                        <!-- Function to get trend class and icon -->
-                        <script>
-                            function getTrend(rank2025, rank2024) {
-                                if (rank2024 === 'N/A' || rank2025 === 'N/A') return { text: 'N/A', class: 'text-gray-500' };
-
-                                // Simple logic for rank improvement (lower number is better)
-                                // This is highly simplified for range comparisons, focusing on 'better' vs 'worse' categories.
-                                const getCategory = (rank) => {
-                                    if (rank.includes('=')) rank = rank.replace('=', '');
-                                    const r = parseInt(rank.split('-')[0].replace('th', '').replace('+', '').replace('=', ''));
-                                    if (isNaN(r)) return 10000;
-                                    if (r <= 100) return 1;
-                                    if (r <= 200) return 2;
-                                    if (r <= 400) return 3;
-                                    if (r <= 600) return 4;
-                                    if (r <= 800) return 5;
-                                    if (r <= 1000) return 6;
-                                    return 7;
-                                };
-
-                                const cat2025 = getCategory(rank2025);
-                                const cat2024 = getCategory(rank2024);
-
-                                if (cat2025 < cat2024) {
-                                    return { text: 'Naik', class: 'text-green-600 font-semibold' };
-                                } else if (cat2025 > cat2024) {
-                                    return { text: 'Turun', class: 'text-red-600 font-semibold' };
-                                } else {
-                                    return { text: 'Stabil', class: 'text-blue-600' };
-                                }
-                            }
-
-                            const sdgData = [
-                                { sdg: 1, desc: 'Tanpa Kemiskinan', d2025: '3', g2025: '101-200th', d2024: '2', g2024: '401-600' },
-                                { sdg: 2, desc: 'Tanpa Kelaparan', d2025: '4', g2025: '201-300th', d2024: '4', g2024: 'N/A' },
-                                { sdg: 3, desc: 'Kesehatan & Kesejahteraan', d2025: '5', g2025: '301-400th', d2024: '6', g2024: '1001+' },
-                                { sdg: 4, desc: 'Pendidikan Berkualitas', d2025: '1', g2025: '=66th', d2024: '1', g2024: '101-200' },
-                                { sdg: 5, desc: 'Kesetaraan Gender', d2025: '5', g2025: '301-400th', d2024: '6', g2024: 'N/A' },
-                                { sdg: 6, desc: 'Air Bersih & Sanitasi', d2025: 'N/A', g2025: 'N/A', d2024: 'N/A', g2024: 'N/A' },
-                                { sdg: 7, desc: 'Energi Bersih & Terjangkau', d2025: '5', g2025: '301-400th', d2024: '7', g2024: 'N/A' },
-                                { sdg: 8, desc: 'Pekerjaan Layak & Pertumbuhan Ekonomi', d2025: 'N/A', g2025: 'N/A', d2024: 'N/A', g2024: 'N/A' },
-                                { sdg: 9, desc: 'Industri, Inovasi, & Infrastruktur', d2025: '3', g2025: '401-600th', d2024: '3', g2024: '401-600t' },
-                                { sdg: 10, desc: 'Mengurangi Kesenjangan', d2025: '6', g2025: '601-800th', d2024: '7', g2024: 'N/A' },
-                                { sdg: 11, desc: 'Kota & Komunitas Berkelanjutan', d2025: '4', g2025: '301-400th', d2024: '5', g2024: '601-800th' },
-                                { sdg: 12, desc: 'Konsumsi & Produksi Bertanggung Jawab', d2025: 'N/A', g2025: 'N/A', d2024: 'N/A', g2024: 'N/A' },
-                                { sdg: 13, desc: 'Penanganan Perubahan Iklim', d2025: '2', g2025: '101-200th', d2024: '3', g2024: '401-600th' },
-                                { sdg: 14, desc: 'Ekosistem Laut', d2025: '1', g2025: '79th', d2024: '2', g2024: '201-300' },
-                                { sdg: 15, desc: 'Ekosistem Darat', d2025: 'N/A', g2025: 'N/A', d2024: 'N/A', g2024: 'N/A' },
-                                { sdg: 16, desc: 'Perdamaian, Keadilan, & Institusi Kuat', d2025: 'N/A', g2025: 'N/A', d2024: 'N/A', g2024: 'N/A' },
-                                { sdg: 17, desc: 'Kemitraan untuk Mencapai Tujuan', d2025: '2', g2025: '101-200th', d2024: '5', g2024: '801-1000' }
-                            ];
-
-                            // Render table rows
-                            document.addEventListener('DOMContentLoaded', () => {
-                                const tbody = document.querySelector('tbody');
-                                sdgData.forEach(data => {
-                                    const trend = getTrend(data.g2025, data.g2024);
-                                    
-                                    // Highlight Top Global Ranks
-                                    const global2025Class = (data.g2025.includes('79') || data.g2025.includes('66')) ? 'bg-emerald-200 font-bold' : 'bg-emerald-50';
-                                    const domestic2025Class = (data.d2025 === '1') ? 'bg-cyan-200 font-bold' : 'bg-cyan-50';
-
-                                    const row = `
-                                        <tr class="hover:bg-gray-100 transition duration-150 ease-in-out">
-                                            <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-900">SDG ${data.sdg}</td>
-                                            <td class="px-3 py-3 text-sm text-gray-500 max-w-xs">${data.desc}</td>
-                                            <td class="px-3 py-3 whitespace-nowrap text-center text-sm ${domestic2025Class}">${data.d2025}</td>
-                                            <td class="px-3 py-3 whitespace-nowrap text-center text-sm ${global2025Class}">${data.g2025}</td>
-                                            <td class="px-3 py-3 whitespace-nowrap text-center text-sm text-gray-500">${data.d2024}</td>
-                                            <td class="px-3 py-3 whitespace-nowrap text-center text-sm text-gray-500">${data.g2024}</td>
-                                            <td class="px-3 py-3 whitespace-nowrap text-center text-sm ${trend.class}">${trend.text}</td>
-                                        </tr>
-                                    `;
-                                    tbody.insertAdjacentHTML('beforeend', row);
-                                });
-                            });
-                        </script>
+                    <!-- Table Body will be rendered by JavaScript -->
+                    <tbody id="rankingTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Rows go here -->
                     </tbody>
                 </table>
             </div>
 
-            <!-- Summary Points -->
-            <div class="mt-8">
-                <h3 class="text-xl font-semibold text-gray-700 mb-4">Analisis Tren Kunci (Peringkat Global)</h3>
-                <ul class="space-y-3 text-gray-600">
-                    <li class="p-3 bg-green-50 rounded-lg border-l-4 border-green-500">
-                        <span class="font-bold text-green-700">Pencapaian Terbaik:</span> **SDG 4 (=66th)** dan **SDG 14 (79th)**. Ini adalah kekuatan utama universitas.
-                    </li>
-                    <li class="p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
-                        <span class="font-bold text-yellow-700">Lompatan Signifikan:</span> Peningkatan drastis pada **SDG 17 (Kemitraan)**, melompat dari 801-1000 ke **101-200**.
-                    </li>
-                    <li class="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-                        <span class="font-bold text-blue-700">Area dengan Peningkatan Kuat:</span> **SDG 1 (Kemiskinan)**, **SDG 3 (Kesehatan)**, **SDG 13 (Iklim)**, dan **SDG 11 (Kota Berkelanjutan)** semuanya menunjukkan peningkatan yang jelas.
-                    </li>
-                    <li class="p-3 bg-red-50 rounded-lg border-l-4 border-red-500">
-                        <span class="font-bold text-red-700">SDG Belum Diranking:</span> **SDG 6, 8, 12, 15, dan 16** belum memiliki data. Ini bisa menjadi fokus pelaporan atau peningkatan di masa depan.
-                    </li>
-                </ul>
+            <div class="mt-6 text-sm text-gray-500">
+                <p><strong>Peringkat Domestik:</strong> Dihitung berdasarkan kesamaan Global Rank (Dense Ranking). Tanda <strong>=</strong> (di depan angka, contoh: **=5**) menunjukkan peringkat yang dibagi dengan universitas lain.</p>
+                <p><strong>Urutan Tabel:</strong> Diurutkan berdasarkan Peringkat Domestik 2025 terbaru.</p>
             </div>
 
         </div>
     </div>
+
+    <script>
+        // Data mentah, menghilangkan kolom Best SDG/Score
+        const rawData2024 = [
+            { name: 'University of Indonesia', globalRank: '31', score: '93.7' },
+            { name: 'Universitas Airlangga', globalRank: '=81', score: '90.3' },
+            { name: 'IPB University', globalRank: '94', score: '89.6' },
+            { name: 'Universitas Gadjah Mada', globalRank: '101–200', score: '84.0–89.1' },
+            { name: 'Institut Teknologi Bandung', globalRank: '201–300', score: '79.3–83.9' },
+            { name: 'Institut Teknologi Sepuluh Nopember', globalRank: '201–300', score: '79.3–83.9' },
+            { name: 'Diponegoro University', globalRank: '301–400', score: '75.8–79.2' },
+            { name: 'Telkom University', globalRank: '301–400', score: '75.8–79.2' },
+            { name: 'Universitas Padjadjaran', globalRank: '301–400', score: '75.8–79.2' },
+            { name: 'BINUS University', globalRank: '401–600', score: '69.9–75.7' },
+            { name: 'Hasanuddin University', globalRank: '401–600', score: '69.9–75.7' },
+            { name: 'University of Brawijaya', globalRank: '401–600', score: '69.9–75.7' },
+            { name: 'State University of Malang', globalRank: '601–800', score: '64.5–69.8' },
+            { name: 'Universitas Muhammadiyah Yogyakarta', globalRank: '601–800', score: '64.5–69.8' },
+            { name: 'Universitas Negeri Surabaya', globalRank: '601–800', score: '64.5–69.8' },
+            { name: 'Universitas Sebelas Maret', globalRank: '601–800', score: '64.5–69.8' },
+            { name: 'Universitas Sumatera Utara', globalRank: '601–800', score: '64.5–69.8' },
+            { name: 'Bakrie University', globalRank: '801–1000', score: '58.8–64.4' },
+            { name: 'Universitas Negeri Yogyakarta', globalRank: '801–1000', score: '58.8–64.4' },
+            { name: 'Universitas Sriwijaya', globalRank: '801–1000', score: '58.8–64.4' },
+            { name: 'Universitas Syiah Kuala', globalRank: '801–1000', score: '58.8–64.4' },
+        ];
+
+        const rawData2025 = [
+            { name: 'Universitas Airlangga', globalRank: '=9', score: '96.9' },
+            { name: 'University of Indonesia', globalRank: '30', score: '94.4' },
+            { name: 'Universitas Gadjah Mada', globalRank: '=82', score: '90.3' },
+            { name: 'IPB University', globalRank: '101–200', score: '83.7–89.4' },
+            { name: 'Institut Teknologi Bandung', globalRank: '201–300', score: '79.4–83.6' },
+            { name: 'Institut Teknologi Sepuluh Nopember', globalRank: '201–300', score: '79.4–83.6' },
+            { name: 'Universitas Padjadjaran', globalRank: '201–300', score: '79.4–83.6' },
+            { name: 'BINUS University', globalRank: '301–400', score: '76.2–79.3' },
+            { name: 'Diponegoro University', globalRank: '301–400', score: '76.2–79.3' },
+            { name: 'Universitas Sebelas Maret', globalRank: '301–400', score: '76.2–79.3' },
+            { name: 'Hasanuddin University', globalRank: '401–600', score: '70.3–76.1' },
+            { name: 'Telkom University', globalRank: '401–600', score: '70.3–76.1' },
+            { name: 'Universitas Pelita Harapan', globalRank: '401–600', score: '70.3–76.1' },
+            { name: 'University of Brawijaya', globalRank: '401–600', score: '70.3–76.1' },
+            { name: 'State University of Malang', globalRank: '601–800', score: '65.6–70.2' },
+            { name: 'Universitas Andalas', globalRank: '601–800', score: '65.6–70.2' },
+            { name: 'Universitas Muhammadiyah Yogyakarta', globalRank: '601–800', score: '65.6–70.2' },
+            { name: 'Universitas Negeri Surabaya', globalRank: '601–800', score: '65.6–70.2' },
+            { name: 'Universitas Sriwijaya', globalRank: '601–800', score: '65.6–70.2' },
+            { name: 'Universitas Syiah Kuala', globalRank: '601–800', score: '65.6–70.2' },
+        ];
+
+        // Konstanta untuk nama universitas yang ingin disorot
+        const HIGHLIGHT_UNIVERSITY = 'Universitas Syiah Kuala';
+
+        /**
+         * Menguraikan string Global Rank menjadi nilai numerik untuk tujuan sorting.
+         * Nilai yang lebih kecil lebih baik.
+         */
+        const parseRankValue = (rankStr) => {
+            if (!rankStr) return Infinity;
+            
+            // Prioritas: Angka Tepat / Angka Bersama (=) -> Rentang Rank
+            const matchExact = rankStr.match(/^=?(\d+)/);
+            if (matchExact) {
+                return parseInt(matchExact[1], 10);
+            }
+            
+            // Mengambil batas bawah untuk Rentang Rank
+            const matchRange = rankStr.match(/^(\d+)–\d+/);
+            if (matchRange) {
+                // Beri bobot lebih rendah pada rentang rank agar berada di belakang rank pasti (diberi offset 10000)
+                return parseInt(matchRange[1], 10) + 10000;
+            }
+            
+            return Infinity;
+        };
+
+        /**
+         * Menghitung Peringkat Domestik berdasarkan Global Rank (Dense Ranking Logic: 1, 2, 2, 3, 3, 3, 4).
+         * Peringkat hanya bertambah ketika Global Rank-nya berbeda.
+         * Juga menentukan apakah peringkat tersebut dibagi (shared).
+         */
+        const calculateDomesticRanks = (data) => {
+            // 1. Sort data berdasarkan nilai Global Rank yang diurai (ascending)
+            const sortedData = [...data].sort((a, b) => {
+                const rankA = parseRankValue(a.globalRank);
+                const rankB = parseRankValue(b.globalRank);
+                return rankA - rankB;
+            });
+
+            if (sortedData.length === 0) return [];
+
+            let currentDomesticRank = 0;
+            let prevGlobalRank = null;
+            
+            // Map untuk menyimpan jumlah universitas per Domestic Rank (untuk mendeteksi sharing)
+            const rankGroups = {}; 
+
+            // Fase 1: Hitung Peringkat Domestik
+            for (let i = 0; i < sortedData.length; i++) {
+                const currentGlobalRank = sortedData[i].globalRank;
+                
+                // Dense Ranking: hanya increment jika Global Rank berbeda
+                if (currentGlobalRank !== prevGlobalRank) {
+                    currentDomesticRank++;
+                }
+
+                sortedData[i].domesticRank = currentDomesticRank;
+                
+                // Hitung berapa banyak universitas yang mendapatkan Domestic Rank ini
+                rankGroups[currentDomesticRank] = (rankGroups[currentDomesticRank] || 0) + 1;
+                
+                prevGlobalRank = currentGlobalRank;
+            }
+            
+            // Fase 2: Tetapkan status Shared Rank
+            for (const item of sortedData) {
+                // Peringkat dibagikan jika kelompok peringkat tersebut memiliki lebih dari 1 anggota
+                item.isSharedRank = (rankGroups[item.domesticRank] > 1);
+            }
+
+            return sortedData;
+        };
+        
+        // Hitung peringkat domestik untuk kedua tahun
+        const rankedData2024 = calculateDomesticRanks(rawData2024);
+        const rankedData2025 = calculateDomesticRanks(rawData2025);
+
+        // Gabungkan data ke objek perbandingan
+        const mergedData = {};
+
+        // Fungsi helper untuk memetakan data
+        const mapData = (data, year) => {
+            data.forEach(item => {
+                // Inisialisasi struktur jika belum ada
+                if (!mergedData[item.name]) {
+                    mergedData[item.name] = { 
+                        name: item.name, 
+                        '2024': { domesticRank: null, globalRank: null, score: null, isSharedRank: false }, 
+                        '2025': { domesticRank: null, globalRank: null, score: null, isSharedRank: false } 
+                    };
+                }
+                // Assign data spesifik tahun tersebut
+                mergedData[item.name][year] = {
+                    domesticRank: item.domesticRank,
+                    globalRank: item.globalRank,
+                    score: item.score,
+                    isSharedRank: item.isSharedRank
+                };
+            });
+        };
+        
+        // Map data 2024
+        mapData(rankedData2024, '2024');
+
+        // Map data 2025
+        mapData(rankedData2025, '2025'); 
+        
+        let finalRankings = Object.values(mergedData);
+
+        // Urutkan data akhir berdasarkan Peringkat Domestik 2025, lalu 2024, lalu nama
+        finalRankings.sort((a, b) => {
+            // Gunakan Infinity untuk N/A agar berada di paling bawah
+            const rank25A = a['2025'].domesticRank !== null ? a['2025'].domesticRank : Infinity;
+            const rank25B = b['2025'].domesticRank !== null ? b['2025'].domesticRank : Infinity;
+            const rank24A = a['2024'].domesticRank !== null ? a['2024'].domesticRank : Infinity;
+            const rank24B = b['2024'].domesticRank !== null ? b['2024'].domesticRank : Infinity;
+
+            if (rank25A !== rank25B) return rank25A - rank25B;
+            if (rank24A !== rank24B) return rank24A - rank24B;
+            return a.name.localeCompare(b.name);
+        });
+        
+        /**
+         * Mendapatkan HTML untuk Peringkat Domestik dengan indikator Shared Rank
+         * Menggunakan '=RANK' jika isShared = true.
+         */
+        const getDomesticRankHtml = (data, year) => {
+            const rank = data[year].domesticRank;
+            const isShared = data[year].isSharedRank;
+
+            if (rank === null) return `<span class="rank-na">N/A</span>`;
+            
+            // Jika dibagikan, tampilkan '=' di depan angka
+            const formattedRank = isShared ? `=${rank}` : `${rank}`;
+            return `<span class="font-bold text-gray-800">${formattedRank}</span>`;
+        };
+
+        // Render data ke tabel utama
+        const renderMainTable = () => {
+            const tbody = document.getElementById('rankingTableBody');
+            tbody.innerHTML = '';
+
+            finalRankings.forEach(item => {
+                const data24 = item['2024'];
+                const data25 = item['2025'];
+                
+                // Cek apakah baris saat ini adalah USK
+                const isHighlight = item.name === HIGHLIGHT_UNIVERSITY;
+                
+                // Tentukan kelas CSS untuk baris dan kolom sticky
+                const rowClass = isHighlight ? 'highlight-row' : 'hover:bg-gray-100';
+                const stickyColClass = isHighlight ? 'highlight-col' : 'bg-white';
+                const cell24Class = isHighlight ? 'bg-teal-50/70' : 'bg-teal-50'; // Sedikit redup jika disorot
+                const cell25Class = isHighlight ? 'bg-sky-50/70' : 'bg-sky-50'; // Sedikit redup jika disorot
+                const score24Class = isHighlight ? 'bg-teal-100/70' : 'bg-teal-100';
+                const score25Class = isHighlight ? 'bg-sky-100/70' : 'bg-sky-100';
+
+                const row = `
+                    <tr class="${rowClass} transition duration-150 ease-in-out">
+                        <td class="sticky-col border-r border-gray-300 px-4 py-3 whitespace-nowrap text-sm font-bold text-gray-900 ${stickyColClass}">
+                            ${item.name}
+                        </td>
+                        
+                        <!-- 2024 Data -->
+                        <td class="px-3 py-3 text-center text-sm ${cell24Class}">
+                            ${getDomesticRankHtml(item, '2024')}
+                        </td>
+                        <td class="px-3 py-3 text-center text-sm text-gray-600 ${cell24Class}">
+                            ${data24.globalRank || '<span class="rank-na">N/A</span>'}
+                        </td>
+                        <td class="px-3 py-3 border-r border-gray-300 text-center text-sm font-semibold text-teal-800 ${score24Class}">
+                            ${data24.score || '<span class="rank-na">N/A</span>'}
+                        </td>
+
+                        <!-- 2025 Data -->
+                        <td class="px-3 py-3 text-center text-sm ${cell25Class}">
+                            ${getDomesticRankHtml(item, '2025')}
+                        </td>
+                        <td class="px-3 py-3 text-center text-sm text-gray-600 ${cell25Class}">
+                            ${data25.globalRank || '<span class="rank-na">N/A</span>'}
+                        </td>
+                        <td class="px-3 py-3 text-center text-sm font-semibold text-sky-800 ${score25Class}">
+                            ${data25.score || '<span class="rank-na">N/A</span>'}
+                        </td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMainTable();
+        });
+    </script>
 
 </body>
 </html>
